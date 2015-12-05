@@ -16,6 +16,9 @@
 
 package lk.ac.mrt.cse.dbs.simpleexpensemanager.control;
 
+import android.content.Context;
+
+import lk.ac.mrt.cse.dbs.simpleexpensemanager.control.exception.ExpenseManagerException;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.AccountDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.TransactionDAO;
 import lk.ac.mrt.cse.dbs.simpleexpensemanager.data.impl.InMemoryAccountDAO;
@@ -31,7 +34,7 @@ public class InMemoryDemoExpenseManager extends ExpenseManager {
         setup();
     }
 
-    @Override
+
     public void setup() {
         /*** Begin generating dummy data for In-Memory implementation ***/
 
@@ -48,5 +51,10 @@ public class InMemoryDemoExpenseManager extends ExpenseManager {
         getAccountsDAO().addAccount(dummyAcct2);
 
         /*** End ***/
+    }
+
+    @Override
+    public void setup(Context context) throws ExpenseManagerException {
+
     }
 }
