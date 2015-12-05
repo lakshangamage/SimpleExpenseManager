@@ -43,7 +43,7 @@ public class PersistentAccountDAO implements AccountDAO {
         ArrayList<Account> accountList = new ArrayList<>();
         Cursor cursor = dbHandler.getData("SELECT * FROM account");
         while(cursor.moveToNext()){
-            Account account = new Account(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getDouble(4));
+            Account account = new Account(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(3));
             accountList.add(account);
         }
         if(!cursor.isClosed()){
@@ -56,7 +56,7 @@ public class PersistentAccountDAO implements AccountDAO {
     public Account getAccount(String accountNo) throws InvalidAccountException {
         Cursor cursor = dbHandler.getData("SELECT * FROM account WHERE account_no = '"+accountNo+"'");
         if(cursor.moveToFirst()){
-            Account account = new Account(cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getDouble(4));
+            Account account = new Account(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getDouble(3));
             if(!cursor.isClosed()){
                 cursor.close();
             }

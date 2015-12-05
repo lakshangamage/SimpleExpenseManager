@@ -24,7 +24,7 @@ public class DBHandler extends SQLiteOpenHelper{
         *
         *
          */
-        db.execSQL("CREATE TABLE transaction(transaction_id INT(10) PRIMARY KEY AUTOINCREMENT,date DATE,account_no VARCHAR(10), expense_type INT(1),amount DECIMAL(16,2), FOREIGN KEY(account_no) REFERENCES account(acount_id))");
+        db.execSQL("CREATE TABLE transact(transaction_id INTEGER PRIMARY KEY AUTOINCREMENT,date DATE,account_no VARCHAR(10), expense_type INT(1),amount DECIMAL(16,2), FOREIGN KEY(account_no) REFERENCES account(account_no))");
     }
 
     @Override

@@ -42,26 +42,26 @@ public class PersistentTransactionDAO implements TransactionDAO {
         }
         accountValues.put("amount",amount);
         accountValues.put("account_no", accountNo);
-        dbHandler.setData("transaction", accountValues);
+        dbHandler.setData("transact", accountValues);
     }
 
     @Override
     public List<Transaction> getAllTransactionLogs() {
         ArrayList<Transaction> transactionList = new ArrayList<>();
-        Cursor cursor = dbHandler.getData("SELECT * FROM transaction");
+        Cursor cursor = dbHandler.getData("SELECT * FROM transact");
         while(cursor.moveToNext()){
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = null;
             try {
-                date = formatter.parse(cursor.getString(2));
+                date = formatter.parse(cursor.getString(1));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             ExpenseType expenseType =ExpenseType.EXPENSE;
-            if(cursor.getInt(4) == 0 ){
+            if(cursor.getInt(3) == 0 ){
                 expenseType = ExpenseType.INCOME;
             }
-            Transaction transaction = new Transaction(date,cursor.getString(3),expenseType,cursor.getDouble(5));
+            Transaction transaction = new Transaction(date,cursor.getString(2),expenseType,cursor.getDouble(4));
             transactionList.add(transaction);
         }
         if(!cursor.isClosed()){
@@ -74,20 +74,20 @@ public class PersistentTransactionDAO implements TransactionDAO {
     @Override
     public List<Transaction> getPaginatedTransactionLogs(int limit) {
         ArrayList<Transaction> transactionList = new ArrayList<>();
-        Cursor cursor = dbHandler.getData("SELECT * FROM transaction LIMIT "+limit);
+        Cursor cursor = dbHandler.getData("SELECT * FROM transact LIMIT "+limit);
         while(cursor.moveToNext()){
             DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
             Date date = null;
             try {
-                date = formatter.parse(cursor.getString(2));
+                date = formatter.parse(cursor.getString(1));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             ExpenseType expenseType =ExpenseType.EXPENSE;
-            if(cursor.getInt(4) == 0 ){
+            if(cursor.getInt(3) == 0 ){
                 expenseType = ExpenseType.INCOME;
             }
-            Transaction transaction = new Transaction(date,cursor.getString(3),expenseType,cursor.getDouble(5));
+            Transaction transaction = new Transaction(date,cursor.getString(2),expenseType,cursor.getDouble(4));
             transactionList.add(transaction);
         }
         if(!cursor.isClosed()){
